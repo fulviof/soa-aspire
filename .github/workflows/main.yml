@@ -26,7 +26,7 @@ jobs:
         
       - id: calling_workflow
         name: "Chamando o workflow"
-        uses: ./.github/workflows/publish.yml
+        uses: fulviofanelli-unoeste/WebApis/.github/workflows/publish.yml@main
         with:
           target: ${{ steps.detect_changes.outputs.projects }}
 
