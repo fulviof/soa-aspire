@@ -9,7 +9,7 @@ namespace WebApis.Academico.Controllers
         [HttpGet]
         public IActionResult RetornaAluno()
         {
-            //alteração academico3////
+            //alteração academico3////asdasdasdasd
             return Ok(new {nome = "Fulvio Fanelli", curso =  "Sistemas de Informação", status = "Cursando"});
         }
     }
