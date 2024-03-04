@@ -1,5 +1,5 @@
 name: Chimichangas
- 
+
 on:
   push:
     branches: [ master ]
@@ -7,29 +7,33 @@ on:
     branches: [ master ]
 
 env:
-  lista: ""
+  PROJECT_NAME: "[None]"
 
 jobs:
-  detect:
+  Encanto:
     runs-on: ubuntu-latest
-    outputs:
-      alteracoes: ${{ steps.detect_changes.outputs.projects }}
     steps:
+
       - id: checkout
         name: Checkout
         uses: actions/checkout@v2
-        
+
       - id: detect_changes
         name: Detect Changes
         uses: zattoo/recognition@v2
         with:
           Domains: '{"Financeiro": ["Financeiro"], "Vestibular": ["Vestibular"], "Academico": ["Academico"]}' # name : path
           token: ${{ secrets.TOKEN_REPO }}
-        
-  call:
-   runs-on: ubuntu-latest
-   steps:
-    - uses: fulviofanelli-unoeste/WebApis/.github/workflows/publish.yml@main
-      with:
-       target: ${{ jobs.detect.outputs.alteracoes }}
 
+      - id: read_projects
+        name: Read Projects
+        uses: Stockopedia/action-run-on-list@v1
+        with:
+          list: ${{ steps.detect_changes.outputs.projects }}
+          command: |
+            curl \
+              -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: token ${{ secrets.TOKEN_REPO }}" \
+              https://api.github.com/repos/fulviofanelli-unoeste/WebApis/actions/workflows/$item/dispatches \
+              -d '{"ref":"refs/heads/master"}'
