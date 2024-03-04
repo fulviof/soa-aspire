@@ -22,7 +22,7 @@ jobs:
         name: Detect Changes
         uses: zattoo/recognition@v2
         with:
-          Domains: '{"Financeiro": ["Financeiro"], "Vestibular": ["Vestibular"], "Academico": ["Academico"]}' # name : path
+          Domains: '{"Financeiro": ["Financeiro.yml"], "Vestibular": ["Vestibular.yml"], "Academico": ["Academico.yml"]}' # name : path
           token: ${{ secrets.TOKEN_REPO }}
 
       - id: read_projects
@@ -35,5 +35,5 @@ jobs:
               -X POST \
               -H "Accept: application/vnd.github.v3+json" \
               -H "Authorization: token ${{ secrets.TOKEN_REPO }}" \
-              https://api.github.com/repos/fulviofanelli-unoeste/WebApis/actions/workflows/Academico/dispatches \
+              https://api.github.com/repos/fulviofanelli-unoeste/WebApis/actions/workflows/$item/dispatches \
               -d '{"ref":"refs/heads/master"}'
