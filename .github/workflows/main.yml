@@ -1,5 +1,5 @@
-name: Miracle
-
+name: Chimichangas
+ 
 on:
   push:
     branches: [ master ]
@@ -7,31 +7,29 @@ on:
     branches: [ master ]
 
 env:
-  PROJECT_NAME: "[None]"
+  lista: ""
 
 jobs:
-  Encanto:
+  detect:
     runs-on: ubuntu-latest
+    outputs:
+      alteracoes: ${{ steps.detect_changes.outputs.projects }}
     steps:
-
       - id: checkout
         name: Checkout
         uses: actions/checkout@v2
-
+        
       - id: detect_changes
         name: Detect Changes
         uses: zattoo/recognition@v2
         with:
           Domains: '{"Financeiro": ["Financeiro"], "Vestibular": ["Vestibular"], "Academico": ["Academico"]}' # name : path
           token: ${{ secrets.TOKEN_REPO }}
+        
+  call:
+   runs-on: ubuntu-latest
+   steps:
+    - uses: fulviofanelli-unoeste/WebApis/.github/workflows/publish.yml@main
+      with:
+       target: ${{ jobs.detect.outputs.alteracoes }}
 
-      - id: read_projects
-        name: Read Projects
-        uses: Stockopedia/action-run-on-list@v1
-        with:
-          list: ${{ steps.detect_changes.outputs.projects }}
-          command: |
-            echo "detected changes in $item" 
-            # doing >> $GITHUB_ENV doesn't work here ☹️
-            # if more than one project level change is detected, the output will be the last one here 😬
-            echo "::set-output name=output1::$item" 
