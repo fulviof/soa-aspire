@@ -11,6 +11,10 @@ jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
+    - id: checkout
+      name: Checkout
+      uses: actions/checkout@v2
+    - id: seila
     - uses: actions/labeler@v4
       with:
         target: ${{ inputs.target }}
