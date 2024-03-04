@@ -1,4 +1,4 @@
-name: Miracle
+name: Chimichangas
 
 on:
   push:
@@ -7,17 +7,16 @@ on:
     branches: [ master ]
 
 env:
-  PROJECT_NAME: "[None]"
+  lista: ""
 
 jobs:
-  Encanto:
+  DetectandoAlteracoes:
     runs-on: ubuntu-latest
     steps:
-
       - id: checkout
         name: Checkout
         uses: actions/checkout@v2
-
+        
       - id: detect_changes
         name: Detect Changes
         uses: zattoo/recognition@v2
@@ -28,10 +27,15 @@ jobs:
       - id: read_projects
         name: Read Projects
         uses: Stockopedia/action-run-on-list@v1
-        with:
-          list: ${{ steps.detect_changes.outputs.projects }}
-          command: |
-            echo "detected changes in $item" 
-            # doing >> $GITHUB_ENV doesn't work here ☹️
-            # if more than one project level change is detected, the output will be the last one here 😬
-            echo "::set-output name=output1::$item" 
+        
+      - id: update_variables
+        name: Update Variables
+        run: echo lista=${{ fromJSON(steps.read_projects.outputs.projects) }} >> $GITHUB_ENV
+        
+  ChamandoWorkflow:
+      strategy:
+        matrix:
+          target: ${{ steps.read_projects.outputs.projects }}
+      uses: ./.github/workflows/publish.yml
+      with:
+        target: ${{ matrix.target }}
