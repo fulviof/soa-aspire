@@ -35,7 +35,7 @@ jobs:
   ChamandoWorkflow:
       strategy:
         matrix:
-          target: ${{ fromJSON($lista) }}
+          target: ${{ fromJSON(env.lista) }}
       uses: ./.github/workflows/publish.yml
       with:
         target: ${{ matrix.target }}
