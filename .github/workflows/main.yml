@@ -22,7 +22,7 @@ jobs:
         name: Detect Changes
         uses: zattoo/recognition@v2
         with:
-          Domains: '{"Financeiro.yml": ["Financeiro"], "Vestibular.yml": ["Vestibular"], "Academico.yml": ["Academico"]}' # name : path
+          Domains: '{"financeiro.yml": ["Financeiro"], "vestibular.yml": ["Vestibular"], "academico.yml": ["Academico"]}' # name : path
           token: ${{ secrets.TOKEN_REPO }}
 
       - id: read_projects
