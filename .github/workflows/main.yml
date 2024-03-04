@@ -10,8 +10,10 @@ env:
   lista: ""
 
 jobs:
-  DetectandoAlteracoes:
+  detect:
     runs-on: ubuntu-latest
+    outputs:
+      alteracoes: ${{ steps.detect_changes.outputs.projects }}
     steps:
       - id: checkout
         name: Checkout
@@ -24,9 +26,10 @@ jobs:
           Domains: '{"Financeiro": ["Financeiro"], "Vestibular": ["Vestibular"], "Academico": ["Academico"]}' # name : path
           token: ${{ secrets.TOKEN_REPO }}
         
-      - id: calling_workflow
-        name: "Chamando o workflow"
-        uses: fulviofanelli-unoeste/WebApis/.github/workflows/publish.yml@main
-        with:
-          target: ${{ steps.detect_changes.outputs.projects }}
+  call:
+   runs-on: ubuntu-latest
+   steps:
+    - uses: fulviofanelli-unoeste/WebApis/.github/workflows/publish.yml@main
+      with:
+       target: ${{ jobs.detect.outputs.alteracoes }}
 
