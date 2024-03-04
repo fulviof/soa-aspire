@@ -23,19 +23,10 @@ jobs:
         with:
           Domains: '{"Financeiro": ["Financeiro"], "Vestibular": ["Vestibular"], "Academico": ["Academico"]}' # name : path
           token: ${{ secrets.TOKEN_REPO }}
+        
+      - id: calling_workflow
+        name: "Chamando o workflow"
+        uses: ./.github/workflows/publish.yml
+        with:
+          target: ${{ steps.detect_changes.outputs.projects }}
 
-      - id: read_projects
-        name: Read Projects
-        uses: Stockopedia/action-run-on-list@v1
-        
-      - id: update_variables
-        name: Update Variables
-        run: echo lista=${{ toJSON(steps.read_projects.outputs.projects) }} >> $GITHUB_ENV
-        
-  ChamandoWorkflow:
-      strategy:
-        matrix:
-          target: ${{ fromJSON(env.lista) }}
-      uses: ./.github/workflows/publish.yml
-      with:
-        target: ${{ matrix.target }}
