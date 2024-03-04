@@ -1,0 +1,14 @@
+name: Reusable workflow example
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+    - id: checkout
+      name: Checkout
+      uses: actions/checkout@v2
+    - name: Testando
+      run: echo "Iniciando publicação pluft plaft zummmmmm"
