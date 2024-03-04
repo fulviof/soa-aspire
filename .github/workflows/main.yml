@@ -30,12 +30,12 @@ jobs:
         
       - id: update_variables
         name: Update Variables
-        run: echo lista=${{ steps.read_projects.outputs.projects }} >> $GITHUB_ENV
+        run: echo lista=${{ toJSON(steps.read_projects.outputs.projects) }} >> $GITHUB_ENV
         
   ChamandoWorkflow:
       strategy:
         matrix:
-          target: ${{ env.lista }}
+          target: ${{ fromJSON(lista) }}
       uses: ./.github/workflows/publish.yml
       with:
         target: ${{ matrix.target }}
