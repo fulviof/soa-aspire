@@ -10,7 +10,7 @@ env:
   PROJECT_NAME: "[None]"
 
 jobs:
-  Encanto:
+  Deteccao:
     runs-on: ubuntu-latest
     steps:
 
