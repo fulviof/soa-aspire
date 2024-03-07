@@ -1,6 +1,6 @@
 # Arquitetura Orientada à Serviços com .NET Aspire
 
-O projeto possui 3 aplicações API REST convencional e uma API Gateway. O próprio Aspire toma conta de colocar de executar as APIs no ambiente de desenvolvimento. <br/>
+O projeto possui 3 aplicações API REST convencional e uma API Gateway. O próprio Aspire toma conta de colocar em execução as APIs no ambiente de desenvolvimento. <br/>
 Com isso, o Gateway está configurado para acessar as rotas das outras 3 APIs diretamento por ele. Na dashboard do Aspire podemos ver todas as aplicações rodando com suas devidas portas e documentação, entretando todas as requisições devem ser feitas ao gateway<br/>
 
 Exemplo:
