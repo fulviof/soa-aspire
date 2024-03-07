@@ -20,13 +20,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UsePathBase(pathBase: "/vestibular");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-
-app.MapControllerRoute(name: "vestibular", pattern: "vestibular");
 
 app.Run();

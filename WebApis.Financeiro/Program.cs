@@ -11,6 +11,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UsePathBase(pathBase: "/financeiro");
+
 app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
@@ -25,8 +27,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-
-app.MapControllerRoute(name: "financeiro", pattern: "financeiro");
 
 app.Run();

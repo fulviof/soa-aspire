@@ -1,3 +1,6 @@
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -9,9 +12,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
-app.UsePathBase(pathBase: "/academico");
+builder.Services.AddOcelot();
+
+var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
@@ -27,5 +32,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseOcelot().Wait();
 
 app.Run();

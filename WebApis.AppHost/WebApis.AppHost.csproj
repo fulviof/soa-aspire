@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WebApis.Academico\WebApis.Academico.csproj" />
     <ProjectReference Include="..\WebApis.Financeiro\WebApis.Financeiro.csproj" />
+    <ProjectReference Include="..\WebApis.Gateway\WebApis.Gateway.csproj" />
     <ProjectReference Include="..\WebApis.Vestibular\WebApis.Vestibular.csproj" />
   </ItemGroup>
 
