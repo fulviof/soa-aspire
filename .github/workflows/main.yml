@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ master ]
 
-env:
-  PROJECT_NAME: "[None]"
-
 jobs:
   Deteccao:
     runs-on: ubuntu-latest
